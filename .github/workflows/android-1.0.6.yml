@@ -47,7 +47,11 @@ jobs:
           test -f Android/app/src/main/AndroidManifest.xml
           test -f Android/app/src/main/assets/index.html
           test -f Android/app/src/main/java/io/auric/qr/MainActivity.java
-          echo 'Proyecto Android localizado y completo.'
+          # Corrige las importaciones de ZXing Embedded 4.3.0 durante la compilación.
+          sed -i 's/com.journeyapps.barcodescanner.IntentIntegrator/com.google.zxing.integration.android.IntentIntegrator/' Android/app/src/main/java/io/auric/qr/MainActivity.java
+          sed -i 's/com.journeyapps.barcodescanner.IntentResult/com.google.zxing.integration.android.IntentResult/' Android/app/src/main/java/io/auric/qr/MainActivity.java
+          grep -q 'import com.google.zxing.integration.android.IntentIntegrator;' Android/app/src/main/java/io/auric/qr/MainActivity.java
+          echo 'Proyecto Android localizado y preparado.'
 
       - name: Compilar APK de depuración
         working-directory: Android
