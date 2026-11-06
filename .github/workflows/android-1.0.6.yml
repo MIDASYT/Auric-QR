@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'auric-qr-android-1.0.6.zip'
+      - '.github/workflows/android-1.0.6.yml'
 
 permissions:
   contents: read
@@ -27,7 +28,9 @@ jobs:
           java-version: '17'
 
       - name: Preparar Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
 
       - name: Preparar Gradle
         uses: gradle/actions/setup-gradle@v4
